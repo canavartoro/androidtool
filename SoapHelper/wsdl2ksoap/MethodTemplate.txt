@@ -24,7 +24,7 @@
 				Log.e("%%METHODNAME%%", e.getMessage());
 			}
 			
-			if(debug == true){
+			if(debug){
 				requestDump = androidHttpTransport.requestDump;
 				responseDump = androidHttpTransport.responseDump;
 			}

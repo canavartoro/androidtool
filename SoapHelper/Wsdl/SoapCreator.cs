@@ -131,10 +131,6 @@ namespace SoapHelper.Wsdl
                     propText.AppendFormat("     public {0} {1} = {2};\n", property.PropertyClassType, property.Name, JavaTypeConverter.InitialToJavaType(property));
                     if (property.IsComplexType)
                     {
-                        /*
-                         * Value = new LoginOut();
-                    Value.loadSoapObject(value);
-                         */
                         setpropstr.AppendFormat("	                {0} = new {1}(); ", property.Name, property.PropertyClassType).AppendLine();
                         setpropstr.AppendFormat("                    {0}.loadSoapObject((SoapObject) value);", property.Name).AppendLine();
                     }
@@ -168,6 +164,9 @@ namespace SoapHelper.Wsdl
             }
             Utility.WriteTrace(string.Format("{0}.java Oluşturuldu", complexClass.Name));
             complexClasses.Add(complexClass.Name);
+
+            complexClass.Output = true;
+            complexClass.Save();
         }
 
         private void CreateSoapClass()
@@ -262,7 +261,7 @@ namespace SoapHelper.Wsdl
 
                 var webfunc = functions[loop];
                 string methodstr = methodstrorj.Replace("%%METHODNAME%%", webfunc.Name).Replace("%%OUTPUT%%", webfunc.OutputType).Replace("%%INPUT%%", webfunc.InputType);
-                               
+
                 SoapClasses paramClass = WebService.SoapClasses.Where(x => x.Name == webfunc.InputType).FirstOrDefault();
 
                 #region InputClass
@@ -363,9 +362,13 @@ namespace SoapHelper.Wsdl
 
                     Utility.WriteTrace(string.Format("{0}.java Oluşturuldu", paramClass.Name));
                     complexClasses.Add(paramClass.Name);
+
+                    paramClass.Output = true;
+                    paramClass.Save();
                 }
                 #endregion
 
+                #region ReturnClass
                 SoapClasses returnClass = WebService.SoapClasses.Where(x => x.Name == webfunc.OutputType).FirstOrDefault();
 
                 if (returnClass != null)
@@ -401,7 +404,7 @@ namespace SoapHelper.Wsdl
 
                             StringBuilder loadobjstr = new StringBuilder();
                             loadobjstr.AppendFormat("		{0} = new {1}();", property.Name, property.PropertyClassType).AppendLine();
-                            loadobjstr.AppendFormat("		{0}.loadSoapObject(property);",property.Name).AppendLine();
+                            loadobjstr.AppendFormat("		{0}.loadSoapObject(property);", property.Name).AppendLine();
                             returnstr = returnstr.Replace("%%LOADSOAPOBJECT%%", loadobjstr.ToString());
 
                         }
@@ -429,7 +432,11 @@ namespace SoapHelper.Wsdl
                     }
                     Utility.WriteTrace(string.Format("{0}.java Oluşturuldu", returnClass.Name));
                     complexClasses.Add(returnClass.Name);
-                }
+
+                    returnClass.Output = true;
+                    returnClass.Save();
+                } 
+                #endregion
             }
 
             return strmethods.ToString();
@@ -577,7 +584,7 @@ namespace SoapHelper.Wsdl
         #region RegisterMappings
 
         private void GetRegisterClasses(SoapClasses soapClass, WebFunctions webfunc)
-        {            
+        {
             for (int loop = 0; loop < soapClass.Properties.Count; loop++)
             {
                 SoapClassProperties property = soapClass.Properties[loop];
