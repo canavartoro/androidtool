@@ -1,0 +1,53 @@
+/*
+by Canavar.Toro 03.06.2020
+%%DATE%%
+*/
+
+package %%PACKAGENAME%%;
+
+import java.util.Date;
+import java.util.Hashtable;
+
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+
+
+public class %%CLASSNAME%% extends BaseObject {
+
+    public %%RESULTPROPTYPE%% %%RESULTPROPNAME%%;
+
+
+    public Object getProperty(int index)
+    {
+    	return %%RESULTPROPNAME%%;
+    }
+
+    public int getPropertyCount()
+    {
+        return %%PROPCOUNT%%;
+    }
+
+    @SuppressWarnings("unchecked")
+	public void getPropertyInfo(int index, Hashtable properties, PropertyInfo info)
+    {
+    	info.name = "%%RESULTPROPNAME%%";
+        info.type = %%GETPROPINFO%%;
+
+    }
+
+    public void setProperty(int index, Object value)
+    {
+    	%%RESULTPROPNAME%% = %%SETPROP%%;
+    }
+    
+	public void loadSoapObject(SoapObject property){
+		if(property == null) return;
+		%%LOADSOAPOBJECT%%
+	}           
+
+    /*public void register(SoapSerializationEnvelope envelope) {        
+        envelope.addMapping(NAMESPACE, "%%CLASSNAME%%", this.getClass());
+    }*/
+
+}

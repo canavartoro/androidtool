@@ -1,0 +1,56 @@
+
+		public %%OUTPUT%% %%METHODNAME%%(%%INPUT%% params) throws Exception
+		{
+		
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+			envelope.dotNet = IsDotNet;
+			envelope.setOutputSoapObject(params.GetSoapParams());
+	    
+%%REGISTERCLASS%%
+
+			new MarshalDecimal().register(envelope);
+			new MarshalDouble().register(envelope);
+			new MarshalDate().register(envelope);
+			new MarshalFloat().register(envelope);	    			
+
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(Address, TimeOut);
+			androidHttpTransport.debug = debug;
+			
+			try{
+				androidHttpTransport.call(params.GetSoapAction(), envelope);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				Log.e("%%METHODNAME%%", e.getMessage());
+			}
+			
+			if(debug == true){
+				requestDump = androidHttpTransport.requestDump;
+				responseDump = androidHttpTransport.responseDump;
+			}
+	        
+			%%OUTPUT%% resp = null;
+			SoapFault fault = getFault(envelope);
+			if(fault == null){
+        		//resp = %%OUTPUT%%.class.cast(envelope.bodyIn);
+				if (envelope.getResponse() instanceof SoapObject) {
+                SoapObject response = (SoapObject) envelope.getResponse();
+                if (response != null) {
+                    resp = new %%OUTPUT%%();
+                    resp.loadSoapObject(response);
+					}
+				}
+				else if (envelope.getResponse() instanceof SoapPrimitive) {
+					SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
+					resp = new %%OUTPUT%%();
+					resp.setProperty(0,response);
+				}        		
+			}
+			else{
+				Log.i(getClass().getSimpleName(), fault.faultstring);
+        		throw new Exception(fault.faultstring);
+			}
+
+			return resp;
+	       
+		}

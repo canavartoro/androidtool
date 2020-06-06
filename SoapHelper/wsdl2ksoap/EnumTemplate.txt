@@ -1,0 +1,8 @@
+﻿/*
+by Canavar.Toro 03.06.2020
+%%DATE%%
+*/
+
+package %%PACKAGENAME%%;
+
+public enum %%CLASSNAME%% { %%PROPERTIES%% }

@@ -1,0 +1,61 @@
+/*
+by Canavar.Toro 03.06.2020
+%%DATE%%
+*/
+
+package %%PACKAGENAME%%;
+
+%%IMPORTS%%
+
+	public final class %%CLASSNAME%%
+	{
+
+		private Boolean debug = true;
+		private String requestDump = "";
+		private String responseDump = "";
+		private String faultstring = "";
+
+		public String Address = "%%ADDRESS%%";
+		public boolean IsDotNet = true;
+		public int TimeOut = 10000;
+		protected static final String NAMESPACE = "%%NAMESPACE%%";
+
+    %%METHODS%%
+	
+	public String getRequestDump(){
+		return requestDump;
+	}
+	
+	public String getResponseDump(){
+		return responseDump;
+	}
+	
+	public String getFaultString(){
+		return faultstring;
+	}
+
+	public void setDebug(Boolean isdebug){
+		debug = isdebug;
+	}		
+
+    private SoapFault getFault(SoapSerializationEnvelope envelope) {
+        SoapFault fault = null;
+        faultstring = "";
+        try {
+            if (envelope.bodyIn instanceof SoapFault) {
+                fault = (SoapFault) envelope.bodyIn;
+                if (fault != null) {
+                    faultstring = fault.faultstring;
+                    Log.e(getClass().getSimpleName(), fault.faultstring);
+                }
+            }
+            //fault = SoapFault.class.cast(envelope.bodyIn);
+        } catch (final ClassCastException ex) {
+            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fault;
+    } 
+
+}

@@ -1,0 +1,20 @@
+/*
+by Canavar.Toro 03.06.2020
+%%DATE%%
+*/
+
+package %%PACKAGENAME%%;
+
+import java.io.Serializable;
+import org.ksoap2.serialization.*;
+
+public abstract class BaseObject implements KvmSerializable, Serializable {
+
+    protected static final String NAMESPACE = "%%NAMESPACE%%";
+
+    public BaseObject()
+    {
+        super();
+    }
+
+}

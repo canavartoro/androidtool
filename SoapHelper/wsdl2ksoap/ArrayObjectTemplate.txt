@@ -1,0 +1,67 @@
+/*
+by Canavar.Toro 03.06.2020
+%%DATE%%
+*/
+
+package %%PACKAGENAME%%;
+
+import java.math.BigDecimal;
+import org.ksoap2.serialization.*;
+import java.util.Hashtable;
+import java.util.Vector;
+
+public class %%CLASSNAME%% extends Vector<%%ELEMENTTYPE%%> implements KvmSerializable {
+
+    private static final long serialVersionUID = 1L;
+    String n1 = "%%NAMESPACE%%";
+
+    protected String getItemDescriptor()
+    {
+        return "%%ELEMENTTYPEDESC%%";
+    }
+
+    // This describes what type of objects are to be contained in the Array
+    protected Class getElementClass() {
+        return %%ELEMENTTYPE%%.class.getClass();
+    }
+
+    /// by TORO
+    @Override
+    public Object getProperty(int arg0) {
+        return this.get(arg0);
+    }
+
+    @Override
+    public int getPropertyCount() {
+        return this.size();
+    }
+
+    @Override
+    public void getPropertyInfo(int arg0, Hashtable arg1, PropertyInfo arg2) {
+        arg2.name = "%%ELEMENTTYPEDESC%%";
+        arg2.type = %%ELEMENTTYPE%%.class.getClass();
+        arg2.namespace = n1;
+    }
+
+    @Override
+    public void setProperty(int arg0, Object arg1) {
+        this.add((%%ELEMENTTYPE%%)arg1);
+    }
+    
+	public void loadSoapObject(SoapObject property){
+		if(property == null) return;
+		int itemCount = property.getPropertyCount();
+		if(itemCount > 0){
+			for(int loop=0;loop < itemCount;loop++){
+				%%LOADSOAPOBJECTS%%
+        	}
+        }
+	}    
+	
+    /*public void register(SoapSerializationEnvelope envelope) {
+        envelope.addMapping(n1, "%%CLASSNAME%%", %%ELEMENTTYPE%%.class.getClass());
+        new %%ELEMENTTYPE%%().register(envelope);
+    }*/
+    
+
+}
