@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\UyumProjects\Senfoni.Customize\ORS\WHM\branches\WarehouseManagement_1.0\WarehouseManagement.Web\bin\DevExpress.Xpo.v18.1.dll</HintPath>
     </Reference>
+    <Reference Include="FastColoredTextBox">
+      <HintPath>..\..\..\..\UyumProjects\Senfoni.Customize\Hidromas\FileManager\FileManager\FastColoredTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
@@ -82,11 +85,18 @@
     <Compile Include="FormNewProject.Designer.cs">
       <DependentUpon>FormNewProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="JavaClassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JavaClassForm.Designer.cs">
+      <DependentUpon>JavaClassForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextTraceListener.cs" />
     <Compile Include="Wsdl\Enums.cs" />
     <Compile Include="Wsdl\FileHelper.cs" />
+    <Compile Include="Wsdl\JavaClassCreator.cs" />
     <Compile Include="Wsdl\JavaTypeConverter.cs" />
     <Compile Include="Wsdl\SoapCreator.cs" />
     <Compile Include="Wsdl\WSDLParser.cs" />
@@ -95,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormNewProject.resx">
       <DependentUpon>FormNewProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JavaClassForm.resx">
+      <DependentUpon>JavaClassForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

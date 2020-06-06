@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -120,12 +121,12 @@ namespace SoapHelper
             }
         }
 
-        public static void WriteTrace(string str)
+        public static void WriteTrace(string str, [CallerMemberName] string callerName = "", [CallerLineNumber] int lineNumber = 0)
         {
             try
             {
-                string modul = (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().ToString();
-                System.Diagnostics.Trace.WriteLine(modul + "\t" + DateTime.Now.ToString() + "\t" + str);//System.Diagnostics.Trace.WriteLine(DateTime.Now.ToString() + "\t" + str + "\t" + modul);
+                //string modul = (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().ToString();
+                System.Diagnostics.Trace.WriteLine(string.Concat(callerName, "(", lineNumber, ")", "\t", DateTime.Now.ToString(), "\t", str));//System.Diagnostics.Trace.WriteLine(DateTime.Now.ToString() + "\t" + str + "\t" + modul);
             }
             catch
             {

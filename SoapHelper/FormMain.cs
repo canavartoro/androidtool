@@ -92,7 +92,7 @@ namespace SoapHelper
                     TreeNode node = treeView1.SelectedNode;
                     node.Nodes.Clear();
 
-                    Trace.WriteLine(string.Format("Seçilen Proje: {0}, Web Servis:{1}, Metod: {2}", webserv.Name, webserv.ServiceName, webserv.Functions.Count));
+                    Utility.WriteTrace(string.Format("Seçilen Proje: {0}, Web Servis:{1}, Metod: {2}", webserv.Name, webserv.ServiceName, webserv.Functions.Count));
                     treeView1.BeginUpdate();
 
                     var funcwithorder = webserv.Functions.OrderBy(x => x.Name).ToList();
@@ -111,7 +111,7 @@ namespace SoapHelper
                 }
                 else
                 {
-                    Trace.WriteLine(string.Format("Seçilen Kategori: {0}", treeView1.SelectedNode.Text));
+                    Utility.WriteTrace(string.Format("Seçilen Kategori: {0}", treeView1.SelectedNode.Text));
                 }
                 propertyGrid1.SelectedObject = webserv;
             }
@@ -133,7 +133,7 @@ namespace SoapHelper
                 Cursor = Cursors.WaitCursor;
                 if (webserv != null)
                 {
-                    Trace.WriteLine(string.Format("Seçilen Proje: {0}, Web Servis:{1}, Metod: {2}, Class: {3}", webserv.Name, webserv.ServiceName, webserv.Functions.Count, webserv.SoapClasses.Count));
+                    Utility.WriteTrace(string.Format("Seçilen Proje: {0}, Web Servis:{1}, Metod: {2}, Class: {3}", webserv.Name, webserv.ServiceName, webserv.Functions.Count, webserv.SoapClasses.Count));
                     listView1.Tag = 1;
                     listView1.BeginUpdate();
                     listView1.Items.Clear();
@@ -157,7 +157,7 @@ namespace SoapHelper
                 }
                 else
                 {
-                    Trace.WriteLine(string.Format("Seçilen Kategori: {0}", treeView1.SelectedNode.Text));
+                    Utility.WriteTrace(string.Format("Seçilen Kategori: {0}", treeView1.SelectedNode.Text));
                 }
                 propertyGrid1.SelectedObject = webserv;
             }
@@ -192,7 +192,13 @@ namespace SoapHelper
                 }
                 else if (treeView1.SelectedNode.Tag is WebFunctions)
                 {
+                    WebFunctions webfunc = treeView1.SelectedNode.Tag as WebFunctions;
+                    Utility.WriteTrace(string.Format("Seçilen Fonksiyon: {0}", webfunc.Name));
                     propertyGrid1.SelectedObject = treeView1.SelectedNode.Tag;
+                }
+                else
+                {
+                    Utility.WriteTrace(string.Format("Seçilen Kategori: {0}", treeView1.SelectedNode.Text));
                 }
             }
             else
@@ -263,11 +269,11 @@ namespace SoapHelper
         {
             if (listView1.SelectedIndices.Count > 0)
             {
-                WebFunctions webfunc = listView1.Items[listView1.SelectedIndices[0]].Tag as WebFunctions;
-                if (webfunc != null)
+                SoapClasses soapClass = listView1.Items[listView1.SelectedIndices[0]].Tag as SoapClasses;
+                if (soapClass != null)
                 {
-                    propertyGrid1.SelectedObject = webfunc;
-                    Trace.WriteLine(string.Format("Seçilen Metod: {0}, Input:{1}, Output: {2}", webfunc.Name, webfunc.InputType, webfunc.OutputType));
+                    propertyGrid1.SelectedObject = soapClass;
+                    Utility.WriteTrace(string.Format("Seçilen Class: {0}, Property:{1}", soapClass.Name, soapClass.Properties.Count));
                 }
             }
         }
@@ -304,6 +310,20 @@ namespace SoapHelper
                     webfunc.Output = e.Node.Checked;
                     webfunc.Save();
                     //LoadFunctions();
+                }
+            }
+        }
+
+        private void btnclass_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                SoapClasses soapClass = listView1.Items[listView1.SelectedIndices[0]].Tag as SoapClasses;
+                if (soapClass != null && webserv != null)
+                {
+                    JavaClassCreator jvcreator = new JavaClassCreator();
+                    JavaClassForm frm = new JavaClassForm(jvcreator.Create(soapClass, webserv));
+                    frm.Show();
                 }
             }
         }

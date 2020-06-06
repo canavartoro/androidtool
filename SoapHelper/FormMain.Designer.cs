@@ -60,6 +60,9 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnclass = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnadapter = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -68,6 +71,7 @@
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -290,6 +294,7 @@
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7});
+            this.listView1.ContextMenuStrip = this.contextMenuStrip2;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
@@ -337,6 +342,30 @@
             this.columnHeader7.Text = "Properties";
             this.columnHeader7.Width = 400;
             // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnclass,
+            this.btnadapter});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(199, 84);
+            // 
+            // btnclass
+            // 
+            this.btnclass.Image = ((System.Drawing.Image)(resources.GetObject("btnclass.Image")));
+            this.btnclass.Name = "btnclass";
+            this.btnclass.Size = new System.Drawing.Size(198, 26);
+            this.btnclass.Text = "Java Class Oluştur";
+            this.btnclass.Click += new System.EventHandler(this.btnclass_Click);
+            // 
+            // btnadapter
+            // 
+            this.btnadapter.Image = ((System.Drawing.Image)(resources.GetObject("btnadapter.Image")));
+            this.btnadapter.Name = "btnadapter";
+            this.btnadapter.Size = new System.Drawing.Size(198, 26);
+            this.btnadapter.Text = "Adapter Oluştur";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -363,6 +392,7 @@
             this.panel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -400,6 +430,9 @@
         private System.Windows.Forms.ToolStripMenuItem btnolustur;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem btnclass;
+        private System.Windows.Forms.ToolStripMenuItem btnadapter;
     }
 }
 
